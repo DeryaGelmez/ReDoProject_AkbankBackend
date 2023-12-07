@@ -1,0 +1,65 @@
+﻿@using ReDoProject.Domain.Entities;
+@model List<Brand>
+
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">@TempData["SuccessMessage"]</div>
+}
+<form method="post">
+    <div class="mb-3 mt-3">
+        <label class="form-label">Name:</label>
+        <input type="text" class="form-control" placeholder="Enter Instrument Name" name="name">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Description:</label>
+        <input type="text" class="form-control" placeholder="Enter Instrument Description" name="description">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Price:</label>
+        <input type="text" class="form-control" placeholder="Enter Price" name="price">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Barcode:</label>
+        <input type="text" class="form-control" placeholder="Enter Barcode" name="barcode">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Image URL:</label>
+        <input type="text" class="form-control" placeholder="Enter Image Url" name="pictureUrl">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Color:</label>
+        @foreach (ReDoProject.Domain.Enums.Color color in Enum.GetValues(typeof(ReDoProject.Domain.Enums.Color)))
+        {
+            <div class="form-check -inline">
+                <input type="checkbox" class="form-check-input" id="@color" name="colors" value="@color">
+                <label class="form-check-label" for="@color">@color</label>
+            </div>
+        }
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Type:</label>
+        <select class="form-select" name="type">
+            @foreach (ReDoProject.Domain.Enums.InstrumentType type in Enum.GetValues(typeof(ReDoProject.Domain.Enums.InstrumentType)))
+            {
+                <option value="@type">@type</option>
+            }
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Brand Name:</label>
+        <select name="brandId">
+            @foreach (var brand in Model)
+            {
+                <option value="@brand.Id">@brand.Name</option>
+            }
+        </select>
+    </div>
+    <br />
+
+
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+    <br />
+</form>
